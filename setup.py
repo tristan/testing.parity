@@ -28,7 +28,7 @@ tests_require = [
 
 setup(
     name='testing.parity',
-    version='1.0.1',
+    version='1.0.2',
     description='automatically setups a parity-ethereum instance, and destroys it after testing',
     long_description=open('README.rst').read(),
     classifiers=classifiers,
@@ -41,5 +41,6 @@ setup(
     include_package_data=True,
     install_requires=install_requires,
     tests_require=tests_require,
-    test_suite='nose.collector'
+    test_suite='nose.collector',
+    namespace_packages=['testing']
 )

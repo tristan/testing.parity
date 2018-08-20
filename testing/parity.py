@@ -95,6 +95,7 @@ class ParityServer(Database):
                             dapps_port=None,
                             difficulty=None,
                             network_id=66,
+                            min_gas_price=None,
                             copy_data_from=None)
 
     subdirectories = ['data', 'tmp']
@@ -218,6 +219,10 @@ class ParityServer(Database):
             cmd.extend(['--no-dapps'])
         elif self.version < (1, 7, 0):
             cmd.extend(['--dapps-port', str(self.settings['dapps_port'])])
+
+        if self.settings['min_gas_price']:
+            cmd.extend(['--min-gas-price', str(self.settings['min_gas_price'])])
+            cmd.extend(['--gasprice', str(self.settings['min_gas_price'])])
 
         if self.settings['bootnodes'] is not None:
             if isinstance(self.settings['bootnodes'], list):
