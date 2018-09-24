@@ -109,7 +109,7 @@ class ParityServer(Database):
         outs, errs = p.communicate(timeout=15)
 
         for line in errs.split(b'\n') + outs.split(b'\n'):
-            m = re.match("^\s+version\sParity\/v([0-9.]+).*$", line.decode('utf-8'))
+            m = re.match("^\s+version\sParity(?:-Ethereum)?\/v([0-9.]+).*$", line.decode('utf-8'))
             if m:
                 v = tuple(int(i) for i in m.group(1).split('.'))
                 break
