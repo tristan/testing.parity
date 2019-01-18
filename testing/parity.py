@@ -1,4 +1,3 @@
-
 import binascii
 import os
 import signal
@@ -57,7 +56,6 @@ chain_json = {
     "name": "Dev",
     "params": {
         "gasLimitBoundDivisor": "0x0400",
-        "blockReward": "0x4563918244F40000",
         "accountStartNonce": "0x0100000",
         "maximumExtraDataSize": "0x20",
         "minGasLimit": "0x1388",
@@ -198,9 +196,7 @@ class ParityServer(Database):
             author = self.author
 
         cmd = [self.parity_server,
-               "--no-ui",
                "--port", str(self.settings['port']),
-               "--datadir", self.get_data_directory(),
                "--no-color",
                "--chain", self.chainfile,
                "--author", author,
@@ -208,6 +204,12 @@ class ParityServer(Database):
                "--node-key", self.settings['node_key']]
 
         # check version
+        if self.version >= (2, 2, 0):
+            cmd.extend(["--base-path", self.get_data_directory()])
+        else:
+            cmd.extend(["--datadir", self.get_data_directory(),
+                        "--no-ui"])
+
         if self.version >= (1, 7, 0):
             cmd.extend(["--jsonrpc-port", str(self.settings['jsonrpc_port']),
                         "--jsonrpc-hosts", "all",
@@ -221,8 +223,10 @@ class ParityServer(Database):
             cmd.extend(['--dapps-port', str(self.settings['dapps_port'])])
 
         if self.settings['min_gas_price']:
-            cmd.extend(['--min-gas-price', str(self.settings['min_gas_price'])])
-            cmd.extend(['--gasprice', str(self.settings['min_gas_price'])])
+            if self.version >= (2, 2, 0):
+                cmd.extend(['--min-gas-price', str(self.settings['min_gas_price'])])
+            else:
+                cmd.extend(['--gasprice', str(self.settings['min_gas_price'])])
 
         if self.settings['bootnodes'] is not None:
             if isinstance(self.settings['bootnodes'], list):

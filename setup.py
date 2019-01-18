@@ -28,7 +28,7 @@ tests_require = [
 
 setup(
     name='testing.parity',
-    version='1.0.3',
+    version='1.0.4',
     description='automatically setups a parity-ethereum instance, and destroys it after testing',
     long_description=open('README.rst').read(),
     classifiers=classifiers,

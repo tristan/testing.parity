@@ -5,7 +5,7 @@ import urllib.request
 import time
 import os
 
-class TestPostgresql(unittest.TestCase):
+class TestParity(unittest.TestCase):
     def test_basic(self):
         try:
             # start postgresql server
