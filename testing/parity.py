@@ -59,10 +59,19 @@ chain_json = {
         "accountStartNonce": "0x0100000",
         "maximumExtraDataSize": "0x20",
         "minGasLimit": "0x1388",
+        "eip150Transition": "0x0",
+        "eip160Transition": "0x0",
+        "eip161abcTransition": "0x0",
+        "eip161dTransition": "0x0",
+        "eip155Transition": "0x0",
         "eip140Transition": "0x0",
         "eip211Transition": "0x0",
         "eip214Transition": "0x0",
-        "eip658Transition": "0x0"
+        "eip658Transition": "0x0",
+        "eip145Transition": "0x0",
+        "eip1014Transition": "0x0",
+        "eip1052Transition": "0x0",
+        "eip1283Transition": "0x0"
     },
     "accounts": {
         "0000000000000000000000000000000000000001": {"balance": "1", "nonce": "1048576", "builtin": {"name": "ecrecover", "pricing": {"linear": {"base": 3000, "word": 0}}}},
