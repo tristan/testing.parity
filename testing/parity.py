@@ -96,6 +96,8 @@ class ParityServer(Database):
                             faucet_private_key=None,
                             port=None,
                             jsonrpc_port=None,
+                            enable_ws=False,
+                            ws_port=None,
                             bootnodes=None,
                             node_key=None,
                             no_dapps=False,
@@ -152,12 +154,21 @@ class ParityServer(Database):
         self.network_id = network_id
 
     def dsn(self, **kwargs):
-        return {'node': 'enode://{}@127.0.0.1:{}'.format(self.node_public_key, self.settings['port']),
-                'url': self.url(),
-                'network_id': self.network_id}
+        dsn = {'node': 'enode://{}@127.0.0.1:{}'.format(self.node_public_key, self.settings['port']),
+               'url': self.url(),
+               'network_id': self.network_id}
+        ws_url = self.ws_url()
+        if ws_url:
+            dsn['ws_url'] = ws_url
+        return dsn
 
     def url(self):
         return "http://localhost:{}".format(self.settings['jsonrpc_port'])
+
+    def ws_url(self):
+        if self.settings['ws_port']:
+            return "ws://localhost:{}".format(self.settings['ws_port'])
+        return None
 
     def get_faucet_private_key(self):
         return self.faucet_private_key
@@ -170,6 +181,9 @@ class ParityServer(Database):
 
         if self.settings['jsonrpc_port'] is None:
             self.settings['jsonrpc_port'] = get_unused_port()
+
+        if self.settings['enable_ws'] and self.settings['ws_port'] is None:
+            self.settings['ws_port'] = get_unused_port()
 
         if self.settings['node_key'] is None:
             self.settings['node_key'] = "{:0>64}".format(binascii.b2a_hex(os.urandom(32)).decode('ascii'))
@@ -221,8 +235,17 @@ class ParityServer(Database):
 
         if self.version >= (1, 7, 0):
             cmd.extend(["--jsonrpc-port", str(self.settings['jsonrpc_port']),
-                        "--jsonrpc-hosts", "all",
-                        "--no-ws"])
+                        "--jsonrpc-hosts", "all"])
+            if self.settings.get('ws_port') is None:
+                cmd.extend(["--no-ws"])
+            else:
+                cmd.extend([
+                    "--ws-interface", "local",
+                    "--ws-port", str(self.settings['ws_port']),
+                    "--ws-origins", "all",
+                    "--ws-hosts", "all"
+                ])
+
         else:
             cmd.extend(["--rpcport", str(self.settings['jsonrpc_port'])])
 
