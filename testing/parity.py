@@ -44,44 +44,123 @@ ethash_genesis = {
     "gasLimit": "0x2fefd8"
 }
 instant_engine = {
-    "instantSeal": None
+    "instantSeal": {
+        "params": {}
+    }
 }
 instant_genesis = {
     "seal": {
         "generic": "0x0"
     },
-    "gasLimit": "0x2fefd8"
+    "difficulty": "0x20000",
+    "author": "0x0000000000000000000000000000000000000000",
+    "timestamp": "0x00",
+    "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "extraData": "0x",
+    "gasLimit": "0x7A1200"
 }
-chain_json = {
-    "name": "Dev",
-    "params": {
-        "gasLimitBoundDivisor": "0x0400",
-        "accountStartNonce": "0x0100000",
-        "maximumExtraDataSize": "0x20",
-        "minGasLimit": "0x1388",
-        "eip150Transition": "0x0",
-        "eip160Transition": "0x0",
-        "eip161abcTransition": "0x0",
-        "eip161dTransition": "0x0",
-        "eip155Transition": "0x0",
-        "eip140Transition": "0x0",
-        "eip211Transition": "0x0",
-        "eip214Transition": "0x0",
-        "eip658Transition": "0x0",
-        "eip145Transition": "0x0",
-        "eip1014Transition": "0x0",
-        "eip1052Transition": "0x0",
-        "eip1283Transition": "0x0"
+chain_json_params_2_5_7 = {
+    "gasLimitBoundDivisor": "0x0400",
+    "accountStartNonce": "0x0100000",
+    "maximumExtraDataSize": "0x20",
+    "minGasLimit": "0x1388",
+    "eip150Transition": "0x0",
+    "eip160Transition": "0x0",
+    "eip161abcTransition": "0x0",
+    "eip161dTransition": "0x0",
+    "eip155Transition": "0x0",
+    "eip140Transition": "0x0",
+    "eip211Transition": "0x0",
+    "eip214Transition": "0x0",
+    "eip658Transition": "0x0",
+    "eip145Transition": "0x0",
+    "eip1014Transition": "0x0",
+    "eip1052Transition": "0x0",
+    "wasmActivationTransition": "0x0"
+}
+chain_json_params_2_5_8 = {
+    "gasLimitBoundDivisor": "0x0400",
+    "accountStartNonce": "0x0100000",
+    "maximumExtraDataSize": "0x20",
+    "minGasLimit": "0x1388",
+    "eip150Transition": "0x0",
+    "eip160Transition": "0x0",
+    "eip161abcTransition": "0x0",
+    "eip161dTransition": "0x0",
+    "eip155Transition": "0x0",
+    "eip98Transition": "0x7fffffffffffff",
+    "maxCodeSize": 24576,
+    "maxCodeSizeTransition": "0x0",
+    "eip140Transition": "0x0",
+    "eip211Transition": "0x0",
+    "eip214Transition": "0x0",
+    "eip658Transition": "0x0",
+    "eip145Transition": "0x0",
+    "eip1014Transition": "0x0",
+    "eip1052Transition": "0x0",
+    "wasmActivationTransition": "0x0"
+}
+
+chain_json_accounts_2_5_7 = {
+    "0000000000000000000000000000000000000001": {"balance": "1", "builtin": {"name": "ecrecover", "pricing": {"linear": {"base": 3000, "word": 0}}}},
+    "0000000000000000000000000000000000000002": {"balance": "1", "builtin": {"name": "sha256", "pricing": {"linear": {"base": 60, "word": 12}}}},
+    "0000000000000000000000000000000000000003": {"balance": "1", "builtin": {"name": "ripemd160", "pricing": {"linear": {"base": 600, "word": 120}}}},
+    "0000000000000000000000000000000000000004": {"balance": "1", "builtin": {"name": "identity", "pricing": {"linear": {"base": 15, "word": 3}}}},
+    "0000000000000000000000000000000000000005": {"builtin": {"name": "modexp", "activate_at": "0x0", "pricing": {"modexp": {"divisor": 2}}}},
+    "0000000000000000000000000000000000000006": {"builtin": {"name": "alt_bn128_add", "activate_at": "0x0", "pricing": {"linear": {"base": 500, "word": 0}}}},
+    "0000000000000000000000000000000000000007": {"builtin": {"name": "alt_bn128_mul", "activate_at": "0x0", "pricing": {"linear": {"base": 40000, "word": 0}}}},
+    "0000000000000000000000000000000000000008": {"builtin": {"name": "alt_bn128_pairing", "activate_at": "0x0", "pricing": {"alt_bn128_pairing": {"base": 100000, "pair": 80000}}}}
+}
+
+chain_json_accounts_2_5_8 = {
+    "0000000000000000000000000000000000000001": {"balance": "1", "builtin": {"name": "ecrecover", "pricing": {"linear": {"base": 3000, "word": 0}}}},
+    "0000000000000000000000000000000000000002": {"balance": "1", "builtin": {"name": "sha256", "pricing": {"linear": {"base": 60, "word": 12}}}},
+    "0000000000000000000000000000000000000003": {"balance": "1", "builtin": {"name": "ripemd160", "pricing": {"linear": {"base": 600, "word": 120}}}},
+    "0000000000000000000000000000000000000004": {"balance": "1", "builtin": {"name": "identity", "pricing": {"linear": {"base": 15, "word": 3}}}},
+    "0000000000000000000000000000000000000005": {"balance": "1", "builtin": {"name": "modexp", "activate_at": 0, "pricing": {"modexp": {"divisor": 20}}}},
+    "0000000000000000000000000000000000000006": {
+        "balance": "1",
+        "builtin": {
+            "name": "alt_bn128_add",
+            "activate_at": 0,
+            "eip1108_transition": "0x7fffffffffffff",
+            "pricing": {
+                "alt_bn128_const_operations": {
+                    "price": 500,
+                    "eip1108_transition_price": 150
+                }
+            }
+        }
     },
-    "accounts": {
-        "0000000000000000000000000000000000000001": {"balance": "1", "nonce": "1048576", "builtin": {"name": "ecrecover", "pricing": {"linear": {"base": 3000, "word": 0}}}},
-        "0000000000000000000000000000000000000002": {"balance": "1", "nonce": "1048576", "builtin": {"name": "sha256", "pricing": {"linear": {"base": 60, "word": 12}}}},
-        "0000000000000000000000000000000000000003": {"balance": "1", "nonce": "1048576", "builtin": {"name": "ripemd160", "pricing": {"linear": {"base": 600, "word": 120}}}},
-        "0000000000000000000000000000000000000004": {"balance": "1", "nonce": "1048576", "builtin": {"name": "identity", "pricing": {"linear": {"base": 15, "word": 3}}}},
-        "0000000000000000000000000000000000000005": {"builtin": {"name": "modexp", "activate_at": "0x0", "pricing": {"modexp": {"divisor": 2}}}},
-        "0000000000000000000000000000000000000006": {"builtin": {"name": "alt_bn128_add", "activate_at": "0x0", "pricing": {"linear": {"base": 500, "word": 0}}}},
-        "0000000000000000000000000000000000000007": {"builtin": {"name": "alt_bn128_mul", "activate_at": "0x0", "pricing": {"linear": {"base": 40000, "word": 0}}}},
-        "0000000000000000000000000000000000000008": {"builtin": {"name": "alt_bn128_pairing", "activate_at": "0x0", "pricing": {"alt_bn128_pairing": {"base": 100000, "pair": 80000}}}}
+    "0000000000000000000000000000000000000007": {
+        "balance": "1",
+        "builtin": {
+            "name": "alt_bn128_mul",
+            "activate_at": 0,
+            "eip1108_transition": "0x7fffffffffffff",
+            "pricing": {
+                "alt_bn128_const_operations": {
+                    "price": 40000,
+                    "eip1108_transition_price": 6000
+                }
+            }
+        }
+    },
+    "0000000000000000000000000000000000000008": {
+        "balance": "1",
+        "builtin": {
+            "name": "alt_bn128_pairing",
+            "activate_at": 0,
+            "eip1108_transition": "0x7fffffffffffff",
+            "pricing": {
+                "alt_bn128_pairing": {
+                    "base": 100000,
+                    "pair": 80000,
+                    "eip1108_transition_base": 45000,
+                    "eip1108_transition_pair": 34000
+                }
+            }
+        }
     }
 }
 
@@ -118,7 +197,7 @@ class ParityServer(Database):
         outs, errs = p.communicate(timeout=15)
 
         for line in errs.split(b'\n') + outs.split(b'\n'):
-            m = re.match("^\s+version\sParity(?:-Ethereum)?\/v([0-9.]+).*$", line.decode('utf-8'))
+            m = re.match(r"^\s+version\sParity(?:-Ethereum)?\/v([0-9.]+).*$", line.decode('utf-8'))
             if m:
                 v = tuple(int(i) for i in m.group(1).split('.'))
                 break
@@ -193,7 +272,15 @@ class ParityServer(Database):
         self.node_public_key = "{:0>128}".format(binascii.b2a_hex(pub).decode('ascii'))
 
         # write chain file
-        chain = copy.deepcopy(chain_json)
+        chain = {
+            "name": "testing.parity.dev"
+        }
+        if self.version >= (2, 5, 8):
+            chain["params"] = copy.deepcopy(chain_json_params_2_5_8)
+            chain["accounts"] = copy.deepcopy(chain_json_accounts_2_5_8)
+        else:
+            chain["params"] = copy.deepcopy(chain_json_params_2_5_7)
+            chain["accounts"] = copy.deepcopy(chain_json_accounts_2_5_7)
         if self.settings.get('ethash'):
             chain["engine"] = copy.deepcopy(ethash_engine)
             chain["genesis"] = copy.deepcopy(ethash_genesis)
@@ -203,12 +290,18 @@ class ParityServer(Database):
             chain["genesis"] = copy.deepcopy(instant_genesis)
         else:
             raise Exception("No selected engine")
+        if self.author.startswith("0x"):
+            author = self.author[2:]
+        else:
+            author = self.author
+        chain["genesis"]["author"] = "0x" + author
         chain["genesis"]["difficulty"] = self.difficulty
         chain["accounts"][privtoaddr(self.faucet_private_key).hex()] = {
             "balance": "1606938044258990275541962092341162602522202993782792835301376",
             "nonce": "1048576"
         }
         chain["params"]["networkID"] = hex(self.network_id)
+
         with open(self.chainfile, 'w') as f:
             json.dump(chain, f)
 
@@ -226,7 +319,11 @@ class ParityServer(Database):
                "--tracing", 'on',
                "--node-key", self.settings['node_key']]
 
-        # check version
+        # version specific arguments
+        if self.version >= (2, 5, 8):
+            cmd.extend(["--reseal-max-period", "0",
+                        "--reseal-min-period", "0"])
+
         if self.version >= (2, 2, 0):
             cmd.extend(["--base-path", self.get_data_directory()])
         else:
