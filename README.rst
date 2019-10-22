@@ -74,3 +74,23 @@ History
 1.0.2 (2018-08-06)
 -------------------
 * Added ``--min-gas-price`` option
+
+1.0.3 (2018-09-24)
+------------------
+* Support Parity-Ethereum in version string
+
+1.0.4 (2019-01-18)
+------------------
+* Support Parity versions >= 2.2.0
+
+1.0.5 (2019-07-17)
+------------------
+* Update chainspec to support Constantinople EIPs
+
+1.0.6 (2019-08-07)
+------------------
+* Allow enabling of websocket interface
+
+1.0.7 (2019-10-19)
+------------------
+* Fix instantSeal engine for Parity versions >= 2.5.8
